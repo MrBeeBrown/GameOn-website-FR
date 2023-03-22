@@ -3,6 +3,16 @@ const modalbg = document.querySelector(".bground");
 const modalBtn = document.querySelectorAll(".modal-btn");
 const formData = document.querySelectorAll(".formData");
 
+/*** Déclaration du formulaire ***/
+const submitForm = document.querySelector(".form");
+
+/*** Déclaration du bground de la modal de fin ***/
+const modalbgEnd = document.querySelector(".bground-end");
+
+/*** Séléction du bouton OK de la modal de fin ***/
+const modalEndOK = document.querySelector(".btn-end");
+
+/*** Variables utilisées pour vérifier l'activation du bouton d'envoi du formulaire***/
 let validFirst = false;
 let validLast = false;
 let validEmail = false;
@@ -14,11 +24,18 @@ let validCondition = true;
 //***select the close icon from modal***
 const modalClose = document.querySelector(".close");
 
+//***select the close icon from modal end***
+const modalCloseEnd = document.querySelector(".close-end");
+
 // launch modal event
 modalBtn.forEach((btn) => btn.addEventListener("click", launchModal));
 
 //***close modal event***
 modalClose.addEventListener("click", closeModal);
+
+//***fermeture de la modal de fin***
+modalCloseEnd.addEventListener("click", closeModalEnd);
+modalEndOK.addEventListener("click", closeModalEnd);
 
 /*** Validation du prénom ***/
 const getPrenom = document.querySelector("#first");
@@ -58,8 +75,11 @@ getLocation6.addEventListener("click", validationLocation);
 let getConditions = document.querySelector("#checkbox1");
 getConditions.addEventListener("click", validationConditions);
 
-/*** Désactivation du bouton de validation du formulaire ***/
+/*** Déclaration du bouton submit***/
 let getSubmit = document.querySelector(".btn-submit");
+getSubmit.addEventListener("click", submitFormData);
+
+/*** Désactivation du bouton de validation du formulaire ***/
 getSubmit.setAttribute("disabled", "disabled");
 getSubmit.style.opacity = .3;
 
@@ -68,9 +88,26 @@ function launchModal() {
   modalbg.style.display = "block";
 }
 
+//***fonction d'affichage de la modal de fin***
+function launchModalEnd() {
+  modalbgEnd.style.display = "block";
+}
+
+//***fonction d'envoi du formulaire***
+function submitFormData(event) {
+  event.preventDefault();
+  closeModal();
+  launchModalEnd();
+}
+
 //***close modal form***
 function closeModal() {
   modalbg.style.display = "none";
+}
+
+//***close modal end form***
+function closeModalEnd() {
+  modalbgEnd.style.display = "none";
 }
 
 function editNav() {
@@ -139,17 +176,14 @@ function validationQuantity() {
     hideError(getQuantity);
     validQuantity = true;
     validationSubmit();
-    console.log(getQuantity.value);
-  } else if (!getQuantity.value) {
+  } else if (getQuantity.value === "") {
     showError(getQuantity);
     validQuantity = false;
     validationSubmit();
-    console.log(getQuantity.value);
   } else {
     showError(getQuantity);
     validQuantity = false;
     validationSubmit();
-    console.log(getQuantity.value);
   }
 };
 
