@@ -39,41 +39,41 @@ modalEndOK.addEventListener("click", closeModalEnd);
 
 /*** Validation du prénom ***/
 const getPrenom = document.querySelector("#first");
-getPrenom.addEventListener("input", validationPrenom);
+getPrenom.addEventListener("input", validatePrenom);
 
 /*** Validation du nom ***/
 const getNom = document.querySelector("#last");
-getNom.addEventListener("input", validationNom);
+getNom.addEventListener("input", validateNom);
 
 /*** Validation du mail ***/
 const getMail = document.querySelector("#email");
-getMail.addEventListener("input", validationMail);
+getMail.addEventListener("input", validateMail);
 
 /*** Validation du date de naissance ***/
 const getBirthDate = document.querySelector("#birthdate");
-getBirthDate.addEventListener("change", validationBirthDate);
+getBirthDate.addEventListener("change", validateBirthDate);
 
 /*** Validation de la participation aux tournois ***/
 const getQuantity = document.querySelector("#quantity");
-getQuantity.addEventListener("input", validationQuantity);
+getQuantity.addEventListener("input", validateQuantity);
 
 /*** Validation de la ville ***/
 const getLocation1 = document.querySelector("#location1");
-getLocation1.addEventListener("click", validationLocation);
+getLocation1.addEventListener("click", validateLocation);
 const getLocation2 = document.querySelector("#location2");
-getLocation2.addEventListener("click", validationLocation);
+getLocation2.addEventListener("click", validateLocation);
 const getLocation3 = document.querySelector("#location3");
-getLocation3.addEventListener("click", validationLocation);
+getLocation3.addEventListener("click", validateLocation);
 const getLocation4 = document.querySelector("#location4");
-getLocation4.addEventListener("click", validationLocation);
+getLocation4.addEventListener("click", validateLocation);
 const getLocation5 = document.querySelector("#location5");
-getLocation5.addEventListener("click", validationLocation);
+getLocation5.addEventListener("click", validateLocation);
 const getLocation6 = document.querySelector("#location6");
-getLocation6.addEventListener("click", validationLocation);
+getLocation6.addEventListener("click", validateLocation);
 
 /*** Validation des conditions d'utilisation ***/
 let getConditions = document.querySelector("#checkbox1");
-getConditions.addEventListener("click", validationConditions);
+getConditions.addEventListener("click", validateConditions);
 
 /*** Déclaration du bouton submit***/
 let getSubmit = document.querySelector(".btn-submit");
@@ -119,100 +119,85 @@ function editNav() {
   }
 }
 
-function validationPrenom() {
+function validatePrenom() {
   const RegExPrenom = /[0-9|._]+/;
-  if (getPrenom.value.length < 2 || RegExPrenom.test(getPrenom.value)) {
+  if (getPrenom.value.trim().length < 2 || RegExPrenom.test(getPrenom.value)) {
     showError(getPrenom);
     validFirst = false;
-    validationSubmit();
   } else {
     hideError(getPrenom);
     validFirst = true;
-    validationSubmit();
   }
+  validationSubmit();
 };
 
-function validationNom() {
+function validateNom() {
   const RegExNom = /[0-9|._]+/;
-  if (getNom.value.length < 2 || RegExNom.test(getNom.value)) {
+  if (getNom.value.trim().length < 2 || RegExNom.test(getNom.value)) {
     showError(getNom);
     validLast = false;
-    validationSubmit();
   } else {
     hideError(getNom);
     validLast = true;
-    validationSubmit();
   }
+  validationSubmit();
 };
 
-function validationMail() {
+function validateMail() {
   const RegExMail = /^([A-Z|a-z|0-9](\.|_){0,1})+[A-Z|a-z|0-9]\@([A-Z|a-z|0-9])+((\.){0,1}[A-Z|a-z|0-9]){2}\.[a-z]{2,3}$/gm;
-  if (RegExMail.test(getMail.value)) {
+  showError(getMail);
+  validEmail = false;
+  if (RegExMail.test(getMail.value.trim())) {
     hideError(getMail);
     validEmail = true;
-    validationSubmit();
-  } else {
-    showError(getMail);
-    validEmail = false;
-    validationSubmit();
   }
+  validationSubmit();
 };
 
-function validationBirthDate() {
+function validateBirthDate() {
   const RegExBirthDate = /(\d{4})(|-|\/|)(\d{2})(|-|\/|)(\d{2})/g;
+  showError(getBirthDate);
+  validBirthDate = false;
   if (RegExBirthDate.test(getBirthDate.value)) {
     hideError(getBirthDate);
     validBirthDate = true;
-    validationSubmit();
-  } else {
-    showError(getBirthDate);
-    validBirthDate = false;
-    validationSubmit();
   }
+  validationSubmit();
 };
 
-function validationQuantity() {
-  if ((0 <= getQuantity.value) && (getQuantity.value <= 99)) {
+function validateQuantity() {
+  showError(getQuantity);
+  validQuantity = false;
+  if ((getQuantity.value.length > 0) && (getQuantity.value <= 99) && (getQuantity.value >= 0)) {
     hideError(getQuantity);
     validQuantity = true;
-    validationSubmit();
-  } else if (getQuantity.value === "") {
-    showError(getQuantity);
-    validQuantity = false;
-    validationSubmit();
-  } else {
-    showError(getQuantity);
-    validQuantity = false;
-    validationSubmit();
   }
+  validationSubmit();
 };
 
-function validationLocation() {
+function validateLocation() {
+  showError(this);
+  validLocation = false;
   if (this.checked) {
     hideError(this);
     validLocation = true;
-    validationSubmit();
-  } else {
-    showError(this);
-    validLocation = false;
-    validationSubmit();
   }
+  validationSubmit();
 };
 
-function validationConditions() {
-  if (getConditions.checked === true) {
+function validateConditions() {
+  if (getConditions.checked) {
     hideError(getConditions);
     validCondition = true;
-    validationSubmit();
   } else {
     showError(getConditions);
     validCondition = false;
-    validationSubmit();
   }
+  validationSubmit();
 };
 
 function validationSubmit() {
-  if ((validFirst === true) && (validLast === true) && (validEmail === true) && (validBirthDate === true) && (validQuantity === true) && (validLocation === true) && (validCondition === true)) {
+  if ((validFirst) && (validLast) && (validEmail) && (validBirthDate) && (validQuantity) && (validLocation) && (validCondition)) {
     getSubmit.removeAttribute("disabled", "disabled");
     getSubmit.style.opacity = 1;
   } else {
