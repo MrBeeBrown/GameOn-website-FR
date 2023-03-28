@@ -90,6 +90,11 @@ img {
     color: #ff0000;
   }
 
+  .topnav a.icon:hover {
+    /*** Ajout de la couleur rouge pour l'icone de menu ***/
+    color: #ffffff;
+  }
+
   .topnav.responsive {
     position: relative;
   }
