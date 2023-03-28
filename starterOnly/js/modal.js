@@ -77,11 +77,7 @@ getConditions.addEventListener("click", validateConditions);
 
 /*** Déclaration du bouton submit***/
 let getSubmit = document.querySelector(".btn-submit");
-getSubmit.addEventListener("click", submitFormData);
-
-/*** Désactivation du bouton de validation du formulaire ***/
-getSubmit.setAttribute("disabled", "disabled");
-getSubmit.style.opacity = .3;
+getSubmit.addEventListener("click", validationSubmit);
 
 // launch modal form
 function launchModal() {
@@ -94,8 +90,7 @@ function launchModalEnd() {
 }
 
 //***fonction d'envoi du formulaire***
-function submitFormData(event) {
-  event.preventDefault();
+function submitFormData() {
   closeModal();
   launchModalEnd();
 }
@@ -128,7 +123,6 @@ function validatePrenom() {
     hideError(getPrenom);
     validFirst = true;
   }
-  validationSubmit();
 };
 
 function validateNom() {
@@ -140,7 +134,6 @@ function validateNom() {
     hideError(getNom);
     validLast = true;
   }
-  validationSubmit();
 };
 
 function validateMail() {
@@ -151,7 +144,6 @@ function validateMail() {
     hideError(getMail);
     validEmail = true;
   }
-  validationSubmit();
 };
 
 function validateBirthDate() {
@@ -162,7 +154,6 @@ function validateBirthDate() {
     hideError(getBirthDate);
     validBirthDate = true;
   }
-  validationSubmit();
 };
 
 function validateQuantity() {
@@ -172,7 +163,6 @@ function validateQuantity() {
     hideError(getQuantity);
     validQuantity = true;
   }
-  validationSubmit();
 };
 
 function validateLocation() {
@@ -182,7 +172,6 @@ function validateLocation() {
     hideError(this);
     validLocation = true;
   }
-  validationSubmit();
 };
 
 function validateConditions() {
@@ -193,17 +182,21 @@ function validateConditions() {
     showError(getConditions);
     validCondition = false;
   }
-  validationSubmit();
 };
 
 function validationSubmit() {
   if ((validFirst) && (validLast) && (validEmail) && (validBirthDate) && (validQuantity) && (validLocation) && (validCondition)) {
-    getSubmit.removeAttribute("disabled", "disabled");
-    getSubmit.style.opacity = 1;
+    submitFormData();
   } else {
-    getSubmit.setAttribute("disabled", "disabled");
-    getSubmit.style.opacity = .3;
+    for (let i = 0; i < formData.length; i++) {
+      let getHiddenError = "";
+      getHiddenError = formData[i].getAttribute("data-error-visible");
+      if (getHiddenError == null) {
+        formData[i].setAttribute("data-error-visible", "true");
+      }
+    }
   }
+  validateConditions();
 };
 
 function showError(_check) {
