@@ -219,7 +219,7 @@ main {
   margin: 5% auto;
   width: 100%;
   max-width: 500px;
-  height: 25%;
+  height: 70%;
   animation-name: modalopen;
   animation-duration: var(--modal-duration);
   background: #232323;
@@ -238,7 +238,16 @@ main {
 /*** Copie du modal-body pour la modal de fin ***/
 .modal-body-end {
   padding: 15px 8%;
-  margin: 10% auto;
+  margin: 70% auto auto auto;
+  text-align: center;
+  font-size: 2rem;
+}
+
+/* Bouton de la modal de fin */
+.btn-end {
+  position: absolute;
+  bottom: 5%;
+  right: 30%;
 }
 
 label {
