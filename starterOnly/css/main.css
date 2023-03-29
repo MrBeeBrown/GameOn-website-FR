@@ -124,6 +124,15 @@ img {
     display: block;
     margin-top: -15px;
   }
+
+  .topnav {
+    display: flex;
+  }
+
+  .header-logo>img {
+    float: left;
+    width: 70%;
+  }
 }
 
 main {
@@ -133,7 +142,7 @@ main {
   padding-top: 0.5vw;
   padding-left: 2vw;
   padding-right: 2vw;
-  margin: 1px 20px 15px;
+  margin: 1px auto 15px;
   border-radius: 2rem;
   text-align: justify;
 }
@@ -243,9 +252,9 @@ main {
 /*** Copie du modal-body pour la modal de fin ***/
 .modal-body-end {
   padding: 15px 8%;
-  margin: 25% auto;
+  margin: 25% auto auto 5%;
   text-align: center;
-  font-size: 2rem;
+  font-size: 1.5rem;
 }
 
 /* Bouton de la modal de fin */
@@ -629,8 +638,9 @@ footer {
   .hero-content {
     background: #fff;
     color: #000;
-    padding: 20px;
+    padding: 10px;
     width: 100%;
+    min-width: 300px;
   }
 
   .hero-content::after {
@@ -642,13 +652,15 @@ footer {
   }
 
   .hero-headline {
-    font-size: 2.6rem;
+    font-size: 2.175rem;
     white-space: normal;
+    min-width: 300px;
   }
 
   .hero-text {
     width: 100%;
     font-size: 1.2rem;
+    min-width: 300px;
   }
 
   .hero-img img {
